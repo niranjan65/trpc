@@ -832,7 +832,7 @@ export default function Form() {
     const canvas = canvasRef.current;
     const signatureData = canvas.toDataURL();
     console.log('Form Data:', { ...data, ...dateValues, signature: signatureData });
-    alert('Form submitted! Check console for data.');
+    alert('Form has been successfully submitted! Please check your email ');
   };
 
   return (
@@ -866,7 +866,7 @@ export default function Form() {
                   <label className="block text-[#252c3e] font-medium text-base mb-2">
                     Name
                   </label>
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 flex-wrap">
                     <input
                       type="text"
                       {...register("firstName")}
@@ -957,7 +957,7 @@ export default function Form() {
                       placeholder="Address Line 2"
                       className="w-full px-3 py-2.5 bg-white border border-[#b8bbd3] rounded-full focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
                     />
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 flex-wrap">
                       <input
                         type="text"
                         {...register("city")}
@@ -971,7 +971,7 @@ export default function Form() {
                         className="flex-1 px-3 py-2.5 border bg-white border-[#b8bbd3] rounded-full focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
                       />
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 flex-wrap">
                       <input
                         type="text"
                         {...register("zipCode")}

@@ -1,596 +1,61 @@
-// import React, { useState, useRef } from 'react';
-// import {useForm} from 'react-hook-form'
-
-// export default function Form() {
-// //   const [formData, setFormData] = useState({
-// //     firstName: '',
-// //     lastName: '',
-// //     dob: '',
-// //     gender: [],
-// //     maritalStatus: '',
-// //     nationality: '',
-// //     addressLine1: '',
-// //     addressLine2: '',
-// //     city: '',
-// //     region: '',
-// //     zipCode: '',
-// //     country: '',
-// //     email: '',
-// //     phone: '',
-// //     medicalInfo: '',
-// //     emergencyContactName: '',
-// //     emergencyContactNumber: '',
-// //     education: '',
-// //     schoolName: '',
-// //     graduationYear: '',
-// //     currentEmployer: '',
-// //     jobTitle: '',
-// //     yearsExperience: '',
-// //     signatureDate: ''
-// //   });
-
-// const [currentStep, setCurrenStep] = useState(1);
-
-// const {
-//     register,
-//     handleSubmit,
-//     watch,
-//     formState: { errors },
-//   } = useForm()
-//   const canvasRef = useRef(null);
-//   const [isDrawing, setIsDrawing] = useState(false);
-
-//   const totalSteps = 5;
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData(prev => ({ ...prev, [name]: value }));
-//   };
-
-//   const handleCheckboxChange = (e) => {
-//     const { value, checked } = e.target;
-//     setFormData(prev => ({
-//       ...prev,
-//       gender: checked 
-//         ? [...prev.gender, value]
-//         : prev.gender.filter(g => g !== value)
-//     }));
-//   };
-
-//   const startDrawing = (e) => {
-//     setIsDrawing(true);
-//     const canvas = canvasRef.current;
-//     const ctx = canvas.getContext('2d');
-//     const rect = canvas.getBoundingClientRect();
-//     const x = e.clientX - rect.left;
-//     const y = e.clientY - rect.top;
-//     ctx.beginPath();
-//     ctx.moveTo(x, y);
-//   };
-
-//   const draw = (e) => {
-//     if (!isDrawing) return;
-//     const canvas = canvasRef.current;
-//     const ctx = canvas.getContext('2d');
-//     const rect = canvas.getBoundingClientRect();
-//     const x = e.clientX - rect.left;
-//     const y = e.clientY - rect.top;
-//     ctx.lineTo(x, y);
-//     ctx.stroke();
-//   };
-
-//   const stopDrawing = () => {
-//     setIsDrawing(false);
-//   };
-
-//   const clearSignature = () => {
-//     const canvas = canvasRef.current;
-//     const ctx = canvas.getContext('2d');
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-//   };
-
-//   const handleNext = () => {
-//     if(currentStep < totalSteps) {
-//         setCurrenStep(currentStep + 1)
-//     }
-//   }
-
-//   const handleBack = () => {
-//     if(currentStep > 1) {
-//         setCurrenStep(currentStep - 1)
-//     }
-//   }
-
-//   const onSubmit = (data) => {
-//     const canvas = canvasRef.current;
-//     const signatureData = canvas.toDataURL();
-//     console.log('Form Data:', { data, signature: signatureData });
-//     alert('Form submitted! Check console for data.');
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-[#edeff4] py-8 px-5">
-//       <div className="max-w-4xl mx-auto">
-//         <div className="bg-white rounded-[50px]-lg shadow-lg">
-//           {/* Header */}
-//           <div className="border-b border-gray-300 px-10 py-7 rounded-[50px]-t-lg">
-//             <h1 className="text-3xl font-medium text-[#252c3e] text-center">
-//               Personal Information Form
-//             </h1>
-//           </div>
-
-//           <div className="p-10 space-y-8">
-//             {
-//                 currentStep == 1 && (
-                    
-//             <div>
-//               <h2 className="text-2xl font-medium text-black border-b border-gray-400 pb-2 mb-6">
-//                 General Info
-//               </h2>
-
-//               {/* Name */}
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Name
-//                 </label>
-//                 <div className="flex gap-4">
-//                   <input
-//                     type="text"
-//                     name="firstName"
-//                     {...register("firstName")}
-//                     // value={formData.firstName}
-//                     // onChange={handleInputChange}
-//                     placeholder="First Name"
-//                     className="flex-1 px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                   />
-//                   <input
-//                     type="text"
-//                     name="lastName"
-//                     {...register("lastName")}
-//                     // value={formData.lastName}
-//                     // onChange={handleInputChange}
-//                     placeholder="Last Name"
-//                     className="flex-1 px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                   />
-//                 </div>
-//               </div>
-
-//               {/* Date of Birth */}
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Date of Birth
-//                 </label>
-//                 <input
-//                   type="date"
-//                   id="default-datepicker"
-//                   name="dob"
-//                   {...register("dob")}
-
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-
-//               {/* Gender */}
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Gender
-//                 </label>
-//                 <div className="flex gap-6">
-//                   {['Male', 'Female', 'Other'].map((option) => (
-//                     <label key={option} className="flex items-center gap-2 cursor-pointer">
-//                       <input
-//                         type="checkbox"
-//                         {...register("checkbox")}
-//                         // value={option}
-//                         // checked={formData.gender.includes(option)}
-//                         // onChange={handleCheckboxChange}
-//                         className="w-5 h-5 border-2 border-[#47476b] rounded-[50px] appearance-none checked:border-[#2eb79f] checked:shadow-[0_0_2px_0_#2eb79f] cursor-pointer relative
-//                         checked:after:content-[''] checked:after:block checked:after:w-1 checked:after:h-2.5 checked:after:border-r-2 checked:after:border-b-2 checked:after:border-[#2eb79f] checked:after:rotate-45 checked:after:absolute checked:after:-top-0.5 checked:after:left-1.5"
-//                       />
-//                       <span className="text-[#47476b] text-base">{option}</span>
-//                     </label>
-//                   ))}
-//                 </div>
-//               </div>
-
-//               {/* Marital Status */}
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Marital Status
-//                 </label>
-//                 <input
-//                   type="text"
-//                   name="maritalStatus"
-//                   {...register("maritalStatus")}
-//                 //   value={formData.maritalStatus}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-
-//               {/* Nationality */}
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Nationality
-//                 </label>
-//                 <input
-//                   type="text"
-//                   name="nationality"
-//                   {...register("nationality")}
-//                 //   value={formData.nationality}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-
-//               {/* Address */}
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Address
-//                 </label>
-//                 <div className="space-y-4">
-//                   <input
-//                     type="text"
-//                     name="addressLine1"
-//                     {...register("addressLine1")}
-//                     // value={formData.addressLine1}
-//                     // onChange={handleInputChange}
-//                     placeholder="Street Address"
-//                     className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                   />
-//                   <input
-//                     type="text"
-//                     name="addressLine2"
-//                     {...register("addressLine2")}
-//                     // value={formData.addressLine2}
-//                     // onChange={handleInputChange}
-//                     placeholder="Address Line 2"
-//                     className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                   />
-//                   <div className="flex gap-4">
-//                     <input
-//                       type="text"
-//                       name="city"
-//                       {...register("city")}
-//                     //   value={formData.city}
-//                     //   onChange={handleInputChange}
-//                       placeholder="City"
-//                       className="flex-1 px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                     />
-//                     <input
-//                       type="text"
-//                       name="region"
-//                       {...register("city")}
-//                     //   value={formData.region}
-//                     //   onChange={handleInputChange}
-//                       placeholder="State/Region/Province"
-//                       className="flex-1 px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                     />
-//                   </div>
-//                   <div className="flex gap-4">
-//                     <input
-//                       type="text"
-//                       name="zipCode"
-//                       {...register("zipCode")}
-//                     //   value={formData.zipCode}
-//                     //   onChange={handleInputChange}
-//                       placeholder="Postal / Zip Code"
-//                       className="flex-1 px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                     />
-//                     <input
-//                       type="text"
-//                       name="country"
-//                       {...register("country")}
-//                     //   value={formData.country}
-//                     //   onChange={handleInputChange}
-//                       placeholder="Country"
-//                       className="flex-1 px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                     />
-//                   </div>
-//                 </div>
-//               </div>
-
-//               {/* Email */}
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Email Address
-//                 </label>
-//                 <input
-//                   type="email"
-//                   name="email"
-//                   {...register("email")}
-//                 //   value={formData.email}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-
-//               {/* Phone */}
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Phone Number
-//                 </label>
-//                 <input
-//                   type="tel"
-//                   name="phone"
-//                   {...register("phone")}
-//                 //   value={formData.phone}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-//             </div>
-//                 )
-//             }
-
-//             {/* Medical Info Section */}
-//             {
-//                 currentStep == 2 && (
-//                     <div>
-//               <h2 className="text-2xl font-medium text-black border-b border-gray-400 pb-2 mb-6">
-//                 Medical Info
-//               </h2>
-
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Medical Information if any (Existing conditions/ Allergies)
-//                 </label>
-//                 <textarea
-//                   name="medicalInfo"
-//                   {...register("medicalInfo")}
-//                 //   value={formData.medicalInfo}
-//                 //   onChange={handleInputChange}
-//                   rows="4"
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[15px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition resize-none"
-//                 />
-//               </div>
-
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Emergency Contact Name
-//                 </label>
-//                 <input
-//                   type="text"
-//                   name="emergencyContactName"
-//                   {...register("emergencyContactName")}
-//                 //   value={formData.emergencyContactName}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Emergency Contact Number
-//                 </label>
-//                 <input
-//                   type="tel"
-//                   name="emergencyContactNumber"
-//                   {...register("emergencyContactNumber")}
-//                 //   value={formData.emergencyContactNumber}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-//             </div>
-//                 )
-//             }
-
-//             {/* Education Info Section */}
-//             {
-//                 currentStep == 3 && (
-//                     <div>
-//               <h2 className="text-2xl font-medium text-black border-b border-gray-400 pb-2 mb-6">
-//                 Education Info
-//               </h2>
-
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Highest Level of Education
-//                 </label>
-//                 <input
-//                   type="text"
-//                   name="education"
-//                   {...register("education")}
-//                 //   value={formData.education}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   School/ University Name
-//                 </label>
-//                 <input
-//                   type="text"
-//                   name="schoolName"
-//                   {...register("schoolName")}
-//                 //   value={formData.schoolName}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Graduation Year
-//                 </label>
-//                 <input
-//                   type="date"
-//                   name="graduationYear"
-//                   {...register("graduationYear")}
-//                 //   value={formData.graduationYear}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-//             </div>
-//                 )
-//             }
-
-//             {/* Employment Info Section */}
-//             {
-//                 currentStep == 4 && (
-//                     <div>
-//               <h2 className="text-2xl font-medium text-black border-b border-gray-400 pb-2 mb-6">
-//                 Employment Info
-//               </h2>
-
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Current Employer
-//                 </label>
-//                 <input
-//                   type="text"
-//                   name="currentEmployer"
-//                   {...register("currentEmployer")}
-//                 //   value={formData.currentEmployer}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Job Title
-//                 </label>
-//                 <input
-//                   type="text"
-//                   name="jobTitle"
-//                   {...register("jobTitle")}
-//                 //   value={formData.jobTitle}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Years of Experience
-//                 </label>
-//                 <input
-//                   type="number"
-//                   name="yearsExperience"
-//                   {...register("yearsExperience")}
-//                 //   value={formData.yearsExperience}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-//             </div>
-//                 )
-//             }
-
-//             {/* Acknowledgement Section */}
-//             {
-//                 currentStep == 5 && (
-//                     <div>
-//               <h2 className="text-2xl font-medium text-black border-b border-gray-400 pb-2 mb-6">
-//                 Acknowledgement
-//               </h2>
-
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Signature
-//                 </label>
-//                 <canvas
-//                   ref={canvasRef}
-//                   width={720}
-//                   height={130}
-//                   onMouseDown={startDrawing}
-//                   onMouseMove={draw}
-//                   onMouseUp={stopDrawing}
-//                   onMouseLeave={stopDrawing}
-//                   className="w-full h-32 border border-[#b8bbd3] rounded-[15px] bg-white cursor-crosshair"
-//                 />
-//                 <button
-//                   type="button"
-//                   onClick={clearSignature}
-//                   className="mt-2 text-sm text-[#465475] underline"
-//                 >
-//                   Clear
-//                 </button>
-//               </div>
-
-//               <div className="mb-6">
-//                 <label className="block text-[#252c3e] font-medium text-base mb-2">
-//                   Date
-//                 </label>
-//                 <input
-//                   type="date"
-//                   name="signatureDate"
-//                   {...register("signatureDate")}
-//                 //   value={formData.signatureDate}
-//                 //   onChange={handleInputChange}
-//                   className="w-full px-3 py-2.5 border border-[#b8bbd3] rounded-[50px] focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
-//                 />
-//               </div>
-//             </div>
-//                 )
-//             }
-//           </div>
-
-//           {/* Submit Button */}
-//           {/* <div className="text-center px-6 py-10">
-//             <button
-//               onClick={handleSubmit(onSubmit)}
-//               className="bg-[#2eb79f] text-white px-10 py-3 rounded-[50px]-full text-base font-medium min-w-[100px] border border-transparent transition-transform hover:scale-105 cursor-pointer"
-//             >
-//               Submit
-//             </button>
-//           </div> */}
-
-//                     {/* Navigation Buttons */}
-//           <div className="px-8 py-6 flex justify-center gap-4 border-t border-gray-200 relative">
-//             <div className="absolute right-8 top-1/2 -translate-y-1/2 text-sm text-[#5a7a6d] font-medium">
-//               {currentStep}/{totalSteps}
-//             </div>
-            
-//             {currentStep > 1 && (
-//               <button
-//                 onClick={handleBack}
-//                 className="bg-[#2d5f4f] text-white px-8 py-3 rounded-full text-base font-medium transition-all hover:bg-[#1f4438] hover:scale-105 shadow-lg"
-//               >
-//                 Back
-//               </button>
-//             )}
-            
-//             {currentStep < totalSteps ? (
-//               <button
-//                 onClick={handleNext}
-//                 className="bg-[#2d5f4f] text-white px-8 py-3 rounded-full text-base font-medium transition-all hover:bg-[#1f4438] hover:scale-105 shadow-lg"
-//               >
-//                 Next
-//               </button>
-//             ) : (
-//               <button
-//                 onClick={handleSubmit(onSubmit)}
-//                 className="bg-[#2d5f4f] text-white px-8 py-3 rounded-full text-base font-medium transition-all hover:bg-[#1f4438] hover:scale-105 shadow-lg"
-//               >
-//                 Submit
-//               </button>
-//             )}
-//           </div>
-
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
 
 import React, { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { Calendar } from 'lucide-react';
+import { Calendar, X, CheckCircle, AlertCircle } from 'lucide-react';
 import bg_image from '../assets/red_background.png'
 import logo from '../assets/mycard_new_logo.png'
+import axios from "axios";
 
+
+function Modal({ isOpen, onClose, type, message }) {
+  if (!isOpen) return null;
+
+  const isSuccess = type === 'success';
+  
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 overflow-hidden">
+        <div className={`p-6 ${isSuccess ? 'bg-green-50' : 'bg-red-50'}`}>
+          <div className="flex items-start justify-between">
+            <div className="flex items-start gap-3">
+              {isSuccess ? (
+                <CheckCircle className="w-6 h-6 text-green-600 shrink-0 mt-0.5" />
+              ) : (
+                <AlertCircle className="w-6 h-6 text-red-600 shrink-0 mt-0.5" />
+              )}
+              <div>
+                <h3 className={`text-lg font-semibold ${isSuccess ? 'text-green-900' : 'text-red-900'}`}>
+                  {isSuccess ? 'Success!' : 'Error'}
+                </h3>
+                <p className={`mt-2 text-sm ${isSuccess ? 'text-green-700' : 'text-red-700'}`}>
+                  {message}
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className={`${isSuccess ? 'text-green-600 hover:text-green-800' : 'text-red-600 hover:text-red-800'} transition`}
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+        <div className="p-4 bg-white flex justify-end">
+          <button
+            onClick={onClose}
+            className={`px-6 py-2 rounded-full text-white font-medium transition ${
+              isSuccess 
+                ? 'bg-green-600 hover:bg-green-700' 
+                : 'bg-red-600 hover:bg-red-700'
+            }`}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // Custom DatePicker Component
 function CustomDatePicker({ value, onChange, name, placeholder = "Select date" }) {
@@ -761,6 +226,11 @@ function CustomDatePicker({ value, onChange, name, placeholder = "Select date" }
 
 export default function Form() {
   const [currentStep, setCurrentStep] = useState(1);
+   const [modalState, setModalState] = useState({
+    isOpen: false,
+    type: 'success',
+    message: ''
+  });
   const [dateValues, setDateValues] = useState({
     dob: '',
     graduationYear: '',
@@ -776,6 +246,14 @@ export default function Form() {
   
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
+
+   const closeModal = () => {
+    setModalState({ isOpen: false, type: 'success', message: '' });
+  };
+
+  const showModal = (type, message) => {
+    setModalState({ isOpen: true, type, message });
+  };
 
   const totalSteps = 5;
 
@@ -828,20 +306,157 @@ export default function Form() {
     }
   };
 
-  const onSubmit = (data) => {
+
+  async function sendResetPasswordEmail(email) {
+  try {
+//     const response = await axios.post(
+//       "http://192.168.101.182:8002/api/method/frappe.core.doctype.user.user.reset_password",   {
+//         user: email, 
+//       },
+//        {
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'Authorization': 'token 1a5cfcab01776e5:63628feef82aa59'
+//   }
+// }
+   
+//     );
+
+    const response = await axios.post(
+      "http://192.168.101.182:8002/api/method/custom.api.reset_password.custom_reset_password",   {
+        email: email, 
+      },
+       {
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'token 1a5cfcab01776e5:63628feef82aa59'
+  }
+}
+   
+    );
+    
+    console.log(response.data.message);
+    alert("Reset password email sent successfully");
+  } catch (error) {
+    console.error(error);
+    alert("Failed to send reset email");
+  }
+}
+
+    const createUser = async (data) => {
+        try {
+            const user_payload = {
+                email: data.email,
+                is_submitted: 1,
+                first_name: data.firstName,
+                role_profile_name: "User All Access"
+            }
+
+
+            const response = await fetch(`http://192.168.101.182:8002/api/resource/User`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'token 1a5cfcab01776e5:63628feef82aa59',
+                },
+                credentials: "omit",
+                body: JSON.stringify(user_payload),
+            });
+
+            const result = await response.json()
+
+            return result
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const updateUser = async (user, cbd_no) => {
+        try {
+
+            const card_blome_payload = {
+      card_blo_me_number: cbd_no,
+      is_submitted: 1
+    }
+            const update_user = await fetch(`http://192.168.101.182:8002/api/resource/User/${user}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'token 1a5cfcab01776e5:63628feef82aa59',
+      },
+      credentials: "omit",
+      body: JSON.stringify(card_blome_payload),
+    });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+  const createCardBloMePage1 = async(data) => {
+    try {
+        const erpNextPayload1 = {
+      first_name: data.firstName,
+      last_name: data.lastName,
+      gender: data.gender,
+      date_of_birth: data.dob,
+      town: data.city,
+      country: data.country,
+      
+    };
+
+    
+    const response = await fetch('http://192.168.101.182:8002/api/resource/Card Blo Me Page1', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'token 1a5cfcab01776e5:63628feef82aa59',
+      },
+      credentials: "omit",
+      body: JSON.stringify(erpNextPayload1),
+    });
+
+    const result = await response.json();
+
+    return result
+
+    } catch (error) {
+        console.warn("Error creating the Card Blo Me Page 1", error)
+    }
+  }
+
+  const onSubmit = async(data) => {
     const canvas = canvasRef.current;
     const signatureData = canvas.toDataURL();
     console.log('Form Data:', { ...data, ...dateValues, signature: signatureData });
-    alert('Form has been successfully submitted! Please check your email ');
+
+    
+
+    const user = await createUser(data)
+
+  
+
+    if(user.exc_type) {
+        
+        showModal('error', 'Duplicate Entry Error');
+    }
+
+    if(user.data){
+        const cardBloMeData = await createCardBloMePage1(data)
+        await updateUser(data.email, cardBloMeData?.data?.name)
+        await sendResetPasswordEmail(data.email)
+        showModal('success', 'Form has been successfully submitted! Please check your email')
+    }
+
+    
   };
 
   return (
     <div
     
-     className="min-h-screen bg-[url(./red_background.png)] py-8 px-5 ">
+     className="min-h-screen bg-white py-8 px-5 ">
       <div className="max-w-4xl mx-auto">
         <div
-        // style={{ backgroundImage: `url(${bg_image})` }}
          className="bg-[#F0DAC5] rounded-lg shadow-lg">
             <div className='flex w-full  justify-center'>
                 <img height={100} width={100} src={logo} alt="" />
@@ -895,7 +510,7 @@ export default function Form() {
                 </div>
 
                 {/* Gender */}
-                <div className="mb-6">
+                {/* <div className="mb-6">
                   <label className="block text-[#252c3e] font-medium text-base mb-2">
                     Gender
                   </label>
@@ -913,10 +528,10 @@ export default function Form() {
                       </label>
                     ))}
                   </div>
-                </div>
+                </div> */}
 
                 {/* Marital Status */}
-                <div className="mb-6">
+                {/* <div className="mb-6">
                   <label className="block text-[#252c3e] font-medium text-base mb-2">
                     Marital Status
                   </label>
@@ -925,7 +540,65 @@ export default function Form() {
                     {...register("maritalStatus")}
                     className="w-full px-3 py-2.5 border bg-white border-[#b8bbd3] rounded-full focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none text-[#252c3e] text-base transition"
                   />
-                </div>
+                </div> */}
+
+
+
+                {/* Gender */}
+<div className="mb-6 relative">
+  <label className="block text-[#252c3e] font-medium text-base mb-2">
+    Gender
+  </label>
+  <div className="relative">
+    <select
+      {...register("gender")}
+      className="w-full px-3 py-2.5 pr-10 border bg-white border-[#b8bbd3] rounded-full 
+      focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none 
+      text-[#252c3e] text-base transition appearance-none"
+    >
+      <option value="">Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Genderqueer">Genderqueer</option>
+      <option value="Non-Conforming">Non-Conforming</option>
+      <option value="Prefer not to say">Prefer not to say</option>
+      <option value="Transgender">Transgender</option>
+      <option value="Other">Other</option>
+    </select>
+
+    {/* Custom Arrow */}
+    <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#2eb79f]">
+      ▼
+    </span>
+  </div>
+</div>
+
+{/* Marital Status */}
+<div className="mb-6 relative">
+  <label className="block text-[#252c3e] font-medium text-base mb-2">
+    Marital Status
+  </label>
+  <div className="relative">
+    <select
+      {...register("maritalStatus")}
+      className="w-full px-3 py-2.5 pr-10 border bg-white border-[#b8bbd3] rounded-full 
+      focus:border-[#2eb79f] focus:shadow-[0_0_2px_0_#2eb79f] focus:outline-none 
+      text-[#252c3e] text-base transition appearance-none"
+    >
+      <option value="">Select Marital Status</option>
+      <option value="Single">Single</option>
+      <option value="Married">Married</option>
+      <option value="Separated">Separated</option>
+      <option value="Widowed">Widowed</option>
+    </select>
+
+    {/* Custom Arrow */}
+    <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#2eb79f]">
+      ▼
+    </span>
+  </div>
+</div>
+
 
                 {/* Nationality */}
                 <div className="mb-6">
@@ -1220,6 +893,13 @@ export default function Form() {
           </div>
         </div>
       </div>
+      
+      <Modal 
+        isOpen={modalState.isOpen}
+        onClose={closeModal}
+        type={modalState.type}
+        message={modalState.message}
+      />
     </div>
   );
 }

@@ -432,21 +432,21 @@ export default function Form() {
 
     
 
-    const user = await createUser(data)
+    // const user = await createUser(data)
 
   
 
-    if(user.exc_type) {
+    // if(user.exc_type) {
         
-        showModal('error', 'Duplicate Entry Error');
-    }
+    //     showModal('error', 'Duplicate Entry Error');
+    // }
 
-    if(user.data){
-        const cardBloMeData = await createCardBloMePage1(data)
-        await updateUser(data.email, cardBloMeData?.data?.name)
-        await sendResetPasswordEmail(data.email)
-        showModal('success', 'Form has been successfully submitted! Please check your email')
-    }
+    // if(user.data){
+    //     const cardBloMeData = await createCardBloMePage1(data)
+    //     await updateUser(data.email, cardBloMeData?.data?.name)
+    //     await sendResetPasswordEmail(data.email)
+    //     showModal('success', 'Form has been successfully submitted! Please check your email')
+    // }
 
     
   };
